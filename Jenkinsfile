@@ -10,11 +10,12 @@ node {
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         def xml = new XmlSlurper().parse("${path}/config.xml")
         print "${xml}"
+        xml.appendNode {
+        foo(bar: "bar value")
+        }   
         println "github url: ${xml.url}"
         println "userRemoteConfigs: ${xml.userRemoteConfigs}"
         println "keepDependencies: ${xml.keepDependencies}"
-        println "properties: ${xml.properties}"
-        println "Inside properties 1: ${xml.properties[1]}"
-        println "Inside properties 2: ${xml.properties.numToKeep.text()}"
+        println "github url: ${xml.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url}"
     }
 }                                   
