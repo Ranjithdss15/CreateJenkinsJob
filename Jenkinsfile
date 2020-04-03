@@ -7,7 +7,7 @@ node {
 
     stage("Open Config.xml"){
         sh 'pwd && ls'
-        def xml = new XmlSlurper().parse('config.xml')
+        def xml = new XmlSlurper().parse('/var/lib/jenkins/workspace/CreateJob/TriggerJob/config.xml')
         print "${xml}"
     }
 }
