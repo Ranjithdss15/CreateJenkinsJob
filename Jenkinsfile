@@ -7,7 +7,7 @@ node {
 
     stage("Open Config.xml"){
         sh 'pwd && ls'
-        def path = sh(script: "ls", returnStdout: true).trim() as String
+        def path = sh(script: "pwd", returnStdout: true).trim() as String
         def xml = new XmlSlurper().parse("${path}/config.xml")
         print "${xml}"
     }
