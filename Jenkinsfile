@@ -13,5 +13,7 @@ node {
         println "github url: ${xml.url}"
         println "userRemoteConfigs: ${xml.userRemoteConfigs}"
         println "keepDependencies: ${xml.keepDependencies}"
+        println "properties: ${xml.properties}"
+        println "Inside properties: ${xml.properties.numToKeep}"
     }
-}
+}               
