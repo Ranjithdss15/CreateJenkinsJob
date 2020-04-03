@@ -10,5 +10,6 @@ node {
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         def xml = new XmlSlurper().parse("${path}/config.xml")
         print "${xml}"
+        print "${xml.url}"
     }
 }
