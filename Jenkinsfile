@@ -19,6 +19,7 @@ node {
         println "github url: ${xml.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url}"
     }
     stage("Modify xml"){
+        def path = sh(script: "pwd", returnStdout: true).trim() as String
         def editxml = new XmlSlurper().parse("${path}/config.xml")
         println "${editxml}"
         editxml.each {it.'keepDependencies'.value="edited"}
