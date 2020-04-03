@@ -15,5 +15,6 @@ node {
         println "keepDependencies: ${xml.keepDependencies}"
         println "properties: ${xml.properties}"
         println "Inside properties: ${xml.properties[numToKeep]}"
+        println "Inside properties 2: ${xml.properties.numToKeep.text()}"
     }
 }                                   
