@@ -14,6 +14,7 @@ node {
         println "userRemoteConfigs: ${xml.userRemoteConfigs}"
         println "keepDependencies: ${xml.keepDependencies}"
         println "properties: ${xml.properties}"
+        println "Inside properties 1: ${xml.properties[1]}"
         println "Inside properties 2: ${xml.properties.numToKeep.text()}"
     }
 }                                   
