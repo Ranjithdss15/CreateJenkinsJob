@@ -6,7 +6,7 @@ node {
     }
 
     stage("Open Config.xml"){
-        sh 'ls'
+        sh 'pwd && ls'
         def xml = new XmlSlurper().parse('config.xml')
         print "${xml}"
     }
