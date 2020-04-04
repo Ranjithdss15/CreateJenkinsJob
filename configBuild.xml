@@ -1,6 +1,5 @@
-<?xml version='1.1' encoding='UTF-8'?>
-<flow-definition plugin="workflow-job@2.35">
-  <description></description>
+<?xml version="1.0" encoding="UTF-8"?><flow-definition plugin="workflow-job@2.35">
+  <description/>
   <keepDependencies>false</keepDependencies>
   <properties>
     <jenkins.model.BuildDiscarderProperty>
@@ -17,18 +16,18 @@
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
   </properties>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.74">
-    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.12.1">
+  <definition plugin="workflow-cps@2.74" class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition">
+    <scm plugin="git@3.12.1" class="hudson.plugins.git.GitSCM">
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>git@github.ancestry.com:Ancestry/contentsystems-scanmanagerapi.git</url>
-          <credentialsId>GITHUB</credentialsId>
+          <url>https://github.com/Ranjithdss15/CreateJenkinsJob.git</url>
+          <credentialsId>github</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
         <hudson.plugins.git.BranchSpec>
-          <name>*/fargate-smoketest</name>
+          <name>*/master</name>
         </hudson.plugins.git.BranchSpec>
       </branches>
       <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
