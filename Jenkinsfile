@@ -20,6 +20,7 @@ node {
         println "github url: ${xml.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url}"
     } */
     stage("Prepare"){
+        deleteDir()
         checkout scm
     }
     // stage("Create Folder"){
