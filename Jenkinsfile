@@ -18,6 +18,9 @@ node {
         println "keepDependencies: ${xml.keepDependencies}"
         println "github url: ${xml.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url}"
     } */
+    stage("Prepare"){
+        checkout scm
+    }
     stage("Create Folder"){
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         println "Creating folder"
