@@ -1,4 +1,5 @@
 import groovy.*
+import groovy.xml.XmlUtil
 node {
     /*
     stage("Get config"){
@@ -24,8 +25,8 @@ node {
     stage("Create Folder"){
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         println "Creating folder"
-        def create = sh(script: "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml", returnStdout: false)
-       // sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
+        //def create = sh(script: "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml", returnStdout: false)
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
         sleep 5
     }
     stage("create Build Job"){
