@@ -21,17 +21,17 @@ node {
     } */
     stage("Prepare"){
         checkout scm
-    }/*
+    }
     stage("Create Folder"){
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         println "Creating folder"
         //def create = sh(script: "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml", returnStdout: false)
         sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
         sleep 5
-    } */
+    } 
     stage("create Build Job"){
         gitURL = "https://github.com/Ranjithdss15/CreateJenkinsJob.git"
-        gitCredID = "testID"
+        gitCredID = "github"
         gitbranch = "*/master"
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         def xmlBuild = new XmlSlurper().parse("${path}/configBuild.xml")
@@ -46,7 +46,7 @@ node {
     }
     stage("Create Deploy Job"){
         gitURL = "https://github.com/Ranjithdss15/CreateJenkinsJob.git"
-        gitCredID = "testID"
+        gitCredID = "github"
         gitbranch = "*/master"
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         def xmlDeploy = new XmlSlurper().parse("${path}/configDeploy.xml")
