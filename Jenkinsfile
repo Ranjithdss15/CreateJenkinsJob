@@ -20,7 +20,7 @@ node {
     } */
     stage("Create Folder"){
         println "Creating folder"
-        curl -X POST  "http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest"   -u admin:111f188371615e4779b9598eb94c5c0f16 -H "Content-Type:application/xml" -d @configFolder.xml
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
         wait 5
     }
     stage("create Build Job"){
@@ -35,7 +35,7 @@ node {
         def writer = new FileWriter("${path}/configBuild.xml")
         XmlUtil.serialize(xmlBuild, writer)
         println "Creating Build Job"
-        curl -X POST  "http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=BuildSmoke"   -u admin:111f188371615e4779b9598eb94c5c0f16 -H "Content-Type:application/xml" -d @configBuild.xml
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=BuildSmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configBuild.xml"
         wait 5
     }
     stage("Create Deploy Job"){
@@ -51,7 +51,7 @@ node {
         def writer = new FileWriter("${path}/configDeploy.xml")
         XmlUtil.serialize(xmlDeploy, writer)
         println "Creating Deploy Job"
-        curl -X POST  "http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=DeploySmoke"   -u admin:111f188371615e4779b9598eb94c5c0f16 -H "Content-Type:application/xml" -d @configDeploy.xml
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=DeploySmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configDeploy.xml"
         wait 5  
     }
 
