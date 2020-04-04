@@ -24,7 +24,7 @@ node {
     stage("Create Folder"){
         def path = sh(script: "pwd", returnStdout: true).trim() as String
         println "Creating folder"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @${path}/configFolder.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
         wait 5
     }
     stage("create Build Job"){
