@@ -19,8 +19,9 @@ node {
         println "github url: ${xml.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url}"
     } */
     stage("Create Folder"){
+        def path = sh(script: "pwd", returnStdout: true).trim() as String
         println "Creating folder"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @${path}/configFolder.xml"
         wait 5
     }
     stage("create Build Job"){
@@ -35,7 +36,7 @@ node {
         def writer = new FileWriter("${path}/configBuild.xml")
         XmlUtil.serialize(xmlBuild, writer)
         println "Creating Build Job"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=BuildSmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configBuild.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=BuildSmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @${path}/configBuild.xml"
         wait 5
     }
     stage("Create Deploy Job"){
@@ -51,7 +52,7 @@ node {
         def writer = new FileWriter("${path}/configDeploy.xml")
         XmlUtil.serialize(xmlDeploy, writer)
         println "Creating Deploy Job"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=DeploySmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configDeploy.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/SmokeTest/createItem?name=DeploySmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @${path}/configDeploy.xml"
         wait 5  
     }
 
