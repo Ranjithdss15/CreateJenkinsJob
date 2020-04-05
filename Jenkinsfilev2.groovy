@@ -6,12 +6,6 @@ node {
         deleteDir()
         checkout scm
     }
-    stage("Create Folder"){
-        def path = sh(script: "pwd", returnStdout: true).trim() as String
-        println "Creating folder"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/createItem?name=SmokeTest   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @configFolder.xml"
-        sleep 5
-    } 
     stage("Modify config.xml"){
         gitURL = "https://github.com/Ranjithdss15/CreateJenkinsJob.git"
         gitCredID = "github"
@@ -37,12 +31,20 @@ node {
        
     }
     stage("Create Jobs"){
+        def STACK_NAME = "CreateJob"
+        def user = "admin"
+        def jenkinsToken = "111f188371615e4779b9598eb94c5c0f16"
+        def auth = "-u ${user}:${jenkinsToken}"
+        def header = "-H Content-Type:application/xml"
         def path = sh(script: "pwd", returnStdout: true).trim() as String
+        println "Creating Folder"
+        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/createItem?name=SmokeTest ${auth} ${header} -d @${path}/config/configFolder.xml"
+        sleep 3 //Waiting for folder creation to complete
         println "Creating Build Job"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/job/SmokeTest/createItem?name=BuildSmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @${path}/configBuild.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/job/SmokeTest/createItem?name=BuildSmoke ${auth} ${header} -d @${path}/config/configBuild.xml"
         
         println "Creating Deploy Job"
-        sh "curl -X POST  http://18.232.144.156:8080/job/CreateJob/job/SmokeTest/createItem?name=DeploySmoke   -u admin:111f188371615e4779b9598eb94c5c0f16 -H Content-Type:application/xml -d @${path}/configDeploy.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/job/SmokeTest/createItem?name=DeploySmoke ${auth} ${header} -d @${path}/config/configDeploy.xml"
           
     }
 
