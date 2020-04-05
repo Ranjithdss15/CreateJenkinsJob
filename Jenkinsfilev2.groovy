@@ -12,6 +12,7 @@ node {
         gitbranch = "*/master"
 
         def path = sh(script: "pwd", returnStdout: true).trim() as String
+        def path = "${path}/config"
         def xmlBuild = new XmlSlurper().parse("${path}/configBuild.xml")
         xmlBuild.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url = "${gitURL}"
         xmlBuild.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.credentialsId = "${gitCredID}"
@@ -37,14 +38,15 @@ node {
         def auth = "-u ${user}:${jenkinsToken}"
         def header = "-H Content-Type:application/xml"
         def path = sh(script: "pwd", returnStdout: true).trim() as String
+        def path = "${path}/config"
         println "Creating Folder"
-        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/createItem?name=SmokeTest ${auth} ${header} -d @${path}/config/configFolder.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/createItem?name=SmokeTest ${auth} ${header} -d @${path}/configFolder.xml"
         sleep 3 //Waiting for folder creation to complete
         println "Creating Build Job"
-        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/job/SmokeTest/createItem?name=BuildSmoke ${auth} ${header} -d @${path}/config/configBuild.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/job/SmokeTest/createItem?name=BuildSmoke ${auth} ${header} -d @${path}/configBuild.xml"
         
         println "Creating Deploy Job"
-        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/job/SmokeTest/createItem?name=DeploySmoke ${auth} ${header} -d @${path}/config/configDeploy.xml"
+        sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/job/SmokeTest/createItem?name=DeploySmoke ${auth} ${header} -d @${path}/configDeploy.xml"
           
     }
 
