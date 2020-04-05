@@ -12,7 +12,7 @@ node {
         gitbranch = "*/master"
 
         def path = sh(script: "pwd", returnStdout: true).trim() as String
-        def path = "${path}/config"
+        path = "${path}/config"
         def xmlBuild = new XmlSlurper().parse("${path}/configBuild.xml")
         xmlBuild.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.url = "${gitURL}"
         xmlBuild.definition.scm.userRemoteConfigs.'hudson.plugins.git.UserRemoteConfig'.credentialsId = "${gitCredID}"
@@ -38,7 +38,7 @@ node {
         def auth = "-u ${user}:${jenkinsToken}"
         def header = "-H Content-Type:application/xml"
         def path = sh(script: "pwd", returnStdout: true).trim() as String
-        def path = "${path}/config"
+        path = "${path}/config"
         println "Creating Folder"
         sh "curl -X POST  http://18.232.144.156:8080/job/${STACK_NAME}/createItem?name=SmokeTest ${auth} ${header} -d @${path}/configFolder.xml"
         sleep 3 //Waiting for folder creation to complete
